@@ -145,6 +145,32 @@ namespace std
 			}
 			return c;
 		}
+		BigInt operator *(const BigInt &b)
+		{
+			BigInt c;
+			if(f==-1&&b.f==-1) c.f=1;
+			if(f==1&&b.f==1) c.f=1;
+			if(f==1&&b.f==-1) c.f=-1;
+			if(f==-1&&b.f==1) c.f=-1;
+			c.len=len+b.len-1;
+			int x=0,i,j;
+			for(i=1;i<=len;i++)
+			{
+				for(j=1;j<=b.len;j++)
+				{
+					c.num[i+j-1]+=num[i]*b.num[j]+x;
+					x=c.num[i+j-1]/10;
+					c.num[i+j-1]%=10;
+				}
+				while(x)
+				{
+					if(i+b.len<=c.len) c.num[i+b.len]=x%10;
+					else c.num[++c.len]=x%10;
+					x/=10;
+				}
+			}
+			return c;
+ 		}
 	};
 	#define bigint BigInt
 }
