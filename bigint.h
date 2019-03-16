@@ -53,7 +53,7 @@ namespace std
 		{
 			len=b.len;
 			f=b.f;
-			*this=b;
+			this->num=b.num;
 		}
 		BigInt operator +(BigInt b)
 		{
@@ -171,6 +171,12 @@ namespace std
 			}
 			return c;
  		}
+ 	 	BigInt abs(void)
+ 	 	{
+ 	 		BigInt c=*this;
+ 	 		c.f=1;
+ 	 		return c;
+		}
 	};
 	#define bigint BigInt
 }
