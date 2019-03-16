@@ -7,6 +7,7 @@ operator +(bigint b)
 operator =(string s)
 operator =(bigint b)
 operator -(bigint b)
+operator *(bigint b)
 ```
 下面是一个例子：
 ```cpp
