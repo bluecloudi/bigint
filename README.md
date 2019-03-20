@@ -3,11 +3,16 @@
 
 高精度容器bigint,支持输入输出流。支持以下操作：
 ```cpp
-operator +(bigint b)
+operator +(bigint a,bigint b)
 operator =(string s)
-operator =(bigint b)
-operator -(bigint b)
-operator *(bigint b)
+operator =(bigint a,bigint b)
+operator >(bigint a,bigint b)
+operator <(bigint a,bigint b)
+operator >=(bigint a,bigint b)
+operator <=(bigint a,bigint b)
+operator ==(bigint a,bigint b)
+operator !=(bigint a,bigint b)
+operator +=(bigint a,bigint b)
 ```
 下面是一个例子：
 ```cpp
