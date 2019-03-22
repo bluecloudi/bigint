@@ -26,9 +26,11 @@ namespace std
 			if(s[0]=='-') f=-1,len=s.size()-1;
 			else f=1,len=s.size();
 			int c=s.size();
+			num.clear();
+			num.push_back(0);
 			for(int i=1;i<=len;i++)
 			{
-				num[i]=s[c-i]-'0';
+				num.push_back(s[c-i]-'0');
 			}
 		}
 		friend istream& operator >>(istream& in,BigInt &val)
@@ -64,13 +66,14 @@ namespace std
 			else c.f=-1;
 			c.len=max(a.len,b.len);
 			int i,x=0;
+			c.num.push_back(0);
 			for(i=1;i<=c.len;i++)
 			{
-				c[i]=a[i]+b[i]+x;
+				c.num.push_back(a[i]+b[i]+x);
 				x=c[i]/10;
 				c[i]%=10;
 			}
-			if(x) c[++c.len]=x;
+			if(x) c.num.push_back(x),c.len++;
 			return c;
 		}
 		friend BigInt operator -(BigInt a,BigInt b)
@@ -96,9 +99,10 @@ namespace std
 			{
 				c.f=-1;
 				c.len=b.len;
+				c.num.push_back(0);
 				for(int i=1;i<=b.len;i--)
 				{
-					c[i]=b[i]-a[i];
+					c.num.push_back(b[i]-a[i]);
 					if(c[i]<0) c[i]+=10,b[i+1]--;
 				}
 				while(c[c.len]==0&&c.len>1) c.len--;
@@ -107,9 +111,10 @@ namespace std
 			{
 				c.f=1;
 				c.len=a.len;
+				c.num.push_back(0);
 				for(int i=1;i<=a.len;i--)
 				{
-					c[i]=a[i]-b[i];
+					c.num.push_back(a[i]-b[i]);
 					if(c[i]<0) c[i]+=10,a[i+1]--;
 				}
 				while(c[c.len]==0&&c.len>1) c.len--;
@@ -147,14 +152,52 @@ namespace std
 		{
 			return !(a>b);
 		}
-		friend BigInt operator +=(BigInt a,const BigInt &b)
+		friend void operator +=(BigInt &a,const BigInt &b)
 		{
-			BigInt c=a+b;
+			a=a+b;
+		}
+		friend void operator -=(BigInt &a,const BigInt &b)
+		{
+			a=a-b;
+		}
+		friend BigInt operator *(BigInt a,BigInt b)
+		{
+			BigInt c;
+			if(a.f==-1&&b.f==1) c.f=-1;
+			if(a.f==1&&b.f==-1) c.f=-1;
+			if(a.f==1&&b.f==1) c.f=1;
+			if(a.f==-1&&b.f==-1) c.f=1;
+			c.len=a.len+b.len-1;
+			int i,j,x=0;
+			c.num.push_back(0);
+			for(i=1;i<=a.len;i++)
+			{
+				x=0;
+				for(j=1;j<b.len;j++)
+				{
+					if(i==1||j==b.len) c.num.push_back(a[i]*b[j]+x);
+					else c[i+j-1]=a[i]*b[j]+x;
+					x=c[i+j-1]/10;
+					c[i+j-1]%=10;
+				}
+				if(x)
+				{
+					c.num.push_back(x);
+					if(i+b.len>c.len) c.len++; 
+				}
+			}
+			while(x)
+			{
+				c.num.push_back(x%10);
+				x/=10;
+				c.len++;
+			}
 			return c;
 		}
-		friend BigInt operator -=(BigInt a,const BigInt &b)
+		BigInt abs(void)
 		{
-			BigInt c=a-b;
+			BigInt c=*this;
+			c.f=1;
 			return c;
 		}
 	};
