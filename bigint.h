@@ -126,6 +126,16 @@ namespace std
 		}
 		friend BigInt operator +(BigInt a,BigInt b)
 		{
+			if(a.f==-1&&b.f==1)
+			{
+				a.f=1;
+				return b-a;
+			}
+			if(a.f==1&&b.f==-1)
+			{
+				b.f=1;
+				return a-b;
+			}
 			BigInt c;
 			if(a.f==1) c.f=1;
 			else c.f=-1;
@@ -143,6 +153,58 @@ namespace std
 				c[i]%=10;
 			}
 			c.update(x);
+			return c;
+		}
+		friend BigInt operator -(BigInt a,BigInt b)
+		{
+			if(a.f==-1&&b.f==1)
+			{
+				b.f=-1;
+				return a+b;
+			}
+			if(a.f==1&&b.f==-1)
+			{
+				b.f=1;
+				return a+b;
+			}
+			if(a.f==-1&&b.f==-1)
+			{
+				a.f=1;
+				b.f=1;
+				return b-a;
+			}
+			BigInt c;
+			c.num.clear();
+			c.num.push_back(0);
+			if(a<b)
+			{
+				c.len=b.len;
+				c.f=-1;
+				for(int i=1;i<=c.len;i++)
+				{
+					if(i<=a.len) c.num.push_back(b[i]-a[i]);
+					else c.num.push_back(b[i]);
+					if(c[i]<0) b[i+1]--,c[i]+=10;
+				}
+			}
+			else
+			{
+				c.len=a.len;
+				c.f=1;
+				for(int i=1;i<=c.len;i++)
+				{
+					if(i<=b.len) c.num.push_back(a[i]-b[i]);
+					else c.num.push_back(a[i]);
+					if(c[i]<0) a[i+1]--,c[i]+=10;
+				}
+			}
+			c.update(0);
+			return c;
+		}
+		BigInt abs(void)
+		{
+			BigInt c=*this;
+			c.f=1;
 			return c;
 		}
 	};
