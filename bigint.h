@@ -14,7 +14,6 @@ std::string llong_to_string(long long x)
 	}
 	return s;
 }
-
 namespace std
 {
 	struct BigInt{
@@ -25,15 +24,16 @@ namespace std
 			len=f=1;
 			num.clear();
 		}
-		void update(int x)
+		void update(int x,bool j)
 		{
-			while(num[len]==0&&len>1) len--;
+			if(j)
 			while(x)
 			{
-				if(num.size()>=len+1) num[++len]=x%10;
+				if(num.size()-1>=len+1) num[++len]=x%10;
 				else num.push_back(x%10),len++;
-				x%=10;
+				x/=10;
 			}
+			else while(num[len]==0&&len>1) len--;
 		}
 		int& operator [](int index)
 		{
@@ -55,7 +55,7 @@ namespace std
 			{
 				num.push_back(s[c-i]-'0');
 			}
-			(*this).update(0);
+			(*this).update(0,0);
 		}
 		void operator =(long long x)
 		{
@@ -152,7 +152,7 @@ namespace std
 				x=c[i]/10;
 				c[i]%=10;
 			}
-			c.update(x);
+			c.update(x,1);
 			return c;
 		}
 		friend BigInt operator -(BigInt a,BigInt b)
@@ -198,16 +198,37 @@ namespace std
 					if(c[i]<0) a[i+1]--,c[i]+=10;
 				}
 			}
-			c.update(0);
+			c.update(0,0);
 			return c;
 		}
-		BigInt abs(void)
+		friend BigInt operator *(BigInt a,BigInt b)
 		{
-			BigInt c=*this;
-			c.f=1;
+			BigInt c;
+			if(a.f==b.f) c.f=1;
+			else c.f=-1;
+			c.num.push_back(0);
+			int x=0;
+			c.len=0;
+			for(int i=1;i<=a.len;i++,x=0)
+			{
+				for(int j=1;j<=b.len;j++)
+				{
+					if(i+j-1>c.len) c.num.push_back(a[i]*b[j]+x),c.len++;
+					else c[i+j-1]+=a[i]*b[j]+x;
+					x=c[i+j-1]/10;
+					c[i+j-1]%=10;
+				}
+				c.update(x,1);
+			}
 			return c;
 		}
 	};
 	#define bigint BigInt
+}
+std::bigint B_abs(std::bigint a)
+{
+	std::bigint c=a;
+	c.f=1;
+	return c;
 }
 #endif
