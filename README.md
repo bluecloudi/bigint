@@ -1,7 +1,7 @@
 # bigint.h
 这里是一个C++库，用来方便的使用高精度。
 
-高精度容器bigint,支持输入输出流。支持以下操作：
+高精度容器bigint（或BigInt）,支持输入输出流。支持以下操作：
 ```cpp
 operator +(bigint a,bigint b)
 operator =(string s)
