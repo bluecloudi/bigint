@@ -16,30 +16,45 @@ std::string llong_to_string(long long x)
 }
 namespace std
 {
-	struct BigInt{
+	struct bigint{
 		vector<int> num;
 		int len,f;
-		BigInt()
+		bigint()
 		{
 			len=f=1;
 			num.clear();
 		}
-		void update(int x,bool j)
+		void update(int x,int j)
 		{
-			if(j)
-			while(x)
+			if(j==1)
 			{
-				if(num.size()-1>=len+1) num[++len]=x%10;
-				else num.push_back(x%10),len++;
-				x/=10;
+				while(x)
+				{
+					if(num.size()-1>=len+1) num[++len]=x%10;
+					else num.push_back(x%10),len++;
+					x/=10;
+				}
 			}
-			else while(num[len]==0&&len>1) len--;
+			else
+			{
+				if(j==2) while(num[len]==0&&len>1) len--;
+				else
+				{
+					while(x)
+					{
+						if(num.size()-1>=len+1) num[++len]=x%10;
+						else num.push_back(x%10),len++;
+						x/=10;
+					}
+					while(num[len]==0&&len>1) len--;
+				}
+			} 
 		}
 		int& operator [](int index)
 		{
 			return num[index];
 		}
-		void operator =(BigInt b)
+		void operator =(bigint b)
 		{
 			len=b.len;
 			f=b.f;
@@ -61,7 +76,7 @@ namespace std
 		{
 			*this=llong_to_string(x);
 		}
-		friend ostream& operator <<(ostream& out,BigInt val)
+		friend ostream& operator <<(ostream& out,bigint val)
 		{
 			if(val.f==-1) out<<'-';
 			for(int i=val.len;i>=1;i--)
@@ -70,14 +85,14 @@ namespace std
 			}
 			return out;
 		}
-		friend istream& operator >>(istream& in,BigInt &val)
+		friend istream& operator >>(istream& in,bigint &val)
 		{
 			string s;
 			in>>s;
 			val=s;
 			return in;
 		}
-		friend bool operator <(BigInt a,BigInt b)
+		friend bool operator <(bigint a,bigint b)
 		{
 			if(a.f==-1&&b.f==1) return true;
 			if(a.f==1&&b.f==-1) return false;
@@ -104,27 +119,27 @@ namespace std
 				return false;
 			}
 		}
-		friend bool operator >(BigInt a,BigInt b)
+		friend bool operator >(bigint a,bigint b)
 		{
 			return b<a;
 		}
-		friend bool operator !=(BigInt a,BigInt b)
+		friend bool operator !=(bigint a,bigint b)
 		{
 			return a>b||a<b;
 		}
-		friend bool operator ==(BigInt a,BigInt b)
+		friend bool operator ==(bigint a,bigint b)
 		{
 			return !(a!=b);
 		}
-		friend bool operator >=(BigInt a,BigInt b)
+		friend bool operator >=(bigint a,bigint b)
 		{
 			return !(a<b);
 		}
-		friend bool operator <=(BigInt a,BigInt b)
+		friend bool operator <=(bigint a,bigint b)
 		{
 			return !(a>b);
 		}
-		friend BigInt operator +(BigInt a,BigInt b)
+		friend bigint operator +(bigint a,bigint b)
 		{
 			if(a.f==-1&&b.f==1)
 			{
@@ -136,7 +151,7 @@ namespace std
 				b.f=1;
 				return a-b;
 			}
-			BigInt c;
+			bigint c;
 			if(a.f==1) c.f=1;
 			else c.f=-1;
 			c.len=max(a.len,b.len);
@@ -155,7 +170,7 @@ namespace std
 			c.update(x,1);
 			return c;
 		}
-		friend BigInt operator -(BigInt a,BigInt b)
+		friend bigint operator -(bigint a,bigint b)
 		{
 			if(a.f==-1&&b.f==1)
 			{
@@ -173,7 +188,7 @@ namespace std
 				b.f=1;
 				return b-a;
 			}
-			BigInt c;
+			bigint c;
 			c.num.clear();
 			c.num.push_back(0);
 			if(a<b)
@@ -201,9 +216,9 @@ namespace std
 			c.update(0,0);
 			return c;
 		}
-		friend BigInt operator *(BigInt a,BigInt b)
+		friend bigint operator *(bigint a,bigint b)
 		{
-			BigInt c;
+			bigint c;
 			if(a.f==b.f) c.f=1;
 			else c.f=-1;
 			c.num.push_back(0);
@@ -223,7 +238,6 @@ namespace std
 			return c;
 		}
 	};
-	#define bigint BigInt
 }
 std::bigint B_abs(std::bigint a)
 {
