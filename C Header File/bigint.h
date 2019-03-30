@@ -237,9 +237,21 @@ namespace std
 			}
 			return c;
 		}
+		friend void operator +=(bigint &a,bigint b)
+		{
+			a=a+b;
+		}
+		friend void operator -=(bigint &a,bigint b)
+		{
+			a=a-b;
+		}
+		friend void operator *=(bigint &a,bigint b)
+		{
+			a=a*b;
+		}
 	};
 }
-std::bigint B_abs(std::bigint a)
+std::bigint b_abs(std::bigint a)
 {
 	std::bigint c=a;
 	c.f=1;
