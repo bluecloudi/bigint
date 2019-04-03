@@ -3,17 +3,6 @@
 #include<vector>
 #include<cstring>
 #include<cmath>
-std::string llong_to_string(long long x)
-{
-	std::string s;
-	if(x<0) s.push_back('-'),x=abs(x);
-	while(x)
-	{
-		s.push_back(x%10+'0');
-		x/=10;
-	}
-	return s;
-}
 namespace std
 {
 	struct bigint{
@@ -72,9 +61,23 @@ namespace std
 			}
 			(*this).update(0,0);
 		}
+		void operator =(char *s)
+		{
+			if(s[0]=='-') f=-1,len=strlen(s)-1;
+			else f=1,len=strlen(s);
+			num.clear();
+			num.push_back(0);
+			for(int i=1,c=strlen(s);i<=len;i++)
+			{
+				num.push_back(s[c-i]-'0');
+			}
+			(*this).update(0,0);
+		}
 		void operator =(long long x)
 		{
-			*this=llong_to_string(x);
+			char a[100001];
+			sprintf(a,"%lld",x);
+			*this=a;
 		}
 		friend ostream& operator <<(ostream& out,bigint val)
 		{
