@@ -7,28 +7,61 @@ namespace std
 {
 	struct bigint{
 		vector<int> num;
-		int len,f;
+		long long len,f;
 		bigint()
 		{
 			len=f=1;
 			num.clear();
 		}
-		bigint(long long i)
+		bigint(const bigint &b)
+		{
+			len=b.len;
+			f=b.f;
+			num=b.num;
+		}
+		bigint(long long n)
 		{
 			int t=0;
 			num.clear();
-			if(i<0) f=-1,i=abs(i);
-			else f=1;
-			num.push_back(0);
-			while(i)
+			if(n==0) f=1,len=1,num.push_back(0),num.push_back(0);
+			else
 			{
-				num.push_back(i%10);
-				t++;
-				i/=10;
+				if(n<0) f=-1,n=abs(n);
+				else f=1;
+				num.push_back(0);
+				while(n)
+				{
+					num.push_back(n%10);
+					t++;
+					n/=10;
+				}
+				len=t;
 			}
-			len=t;
 		}
-		
+		bigint(char c[])
+		{
+			if(c[0]=='-') f=-1,len=strlen(c)-1;
+			else f=1,len=strlen(c);
+			num.clear();
+			num.push_back(0);
+			for(int i=1,p=strlen(c);i<=len;i++)
+			{
+				num.push_back(c[p-i]-'0');
+			}
+			(*this).update(0,0);
+		}
+		bigint(string s)
+		{
+			if(s[0]=='-') f=-1,len=s.size()-1;
+			else f=1,len=s.size();
+			num.clear();
+			num.push_back(0);
+			for(int i=1,c=s.size();i<=len;i++)
+			{
+				num.push_back(s[c-i]-'0');
+			}
+			(*this).update(0,0);
+		}
 		void update(int x,int j)
 		{
 			if(j==1)
@@ -77,23 +110,36 @@ namespace std
 			}
 			(*this).update(0,0);
 		}
-		void operator =(char *s)
+		void operator =(char c[])
 		{
-			if(s[0]=='-') f=-1,len=strlen(s)-1;
-			else f=1,len=strlen(s);
+			if(c[0]=='-') f=-1,len=strlen(c)-1;
+			else f=1,len=strlen(c);
 			num.clear();
 			num.push_back(0);
-			for(int i=1,c=strlen(s);i<=len;i++)
+			for(int i=1,p=strlen(c);i<=len;i++)
 			{
-				num.push_back(s[c-i]-'0');
+				num.push_back(c[p-i]-'0');
 			}
 			(*this).update(0,0);
 		}
-		void operator =(long long x)
+		void operator =(long long n)
 		{
-			char a[100001];
-			sprintf(a,"%lld",x);
-			*this=a;
+			int t=0;
+			num.clear();
+			if(n==0) f=1,len=1,num.push_back(0),num.push_back(0);
+			else
+			{
+				if(n<0) f=-1,n=abs(n);
+				else f=1;
+				num.push_back(0);
+				while(n)
+				{
+					num.push_back(n%10);
+					t++;
+					n/=10;
+				}
+				len=t;
+			}
 		}
 		friend ostream& operator <<(ostream& out,bigint val)
 		{
@@ -256,6 +302,32 @@ namespace std
 			}
 			return c;
 		}
+		friend bigint operator <<(bigint a,long long b)
+		{
+			bigint c;
+			c.f=a.f;
+			c.num.clear();
+			c.num.push_back(0);
+			long long i;
+			c.len=b+a.len;
+			for(i=1;i<=b;i++)
+			{
+				c.num.push_back(0);
+			}
+			for(i=1;i<=a.len;i++)
+			{
+				c.num.push_back(a[i]);
+			}
+			return c;
+		}
+		friend bigint operator /(bigint a,bigint b)
+		{
+			
+		}
+		friend void operator <<=(bigint &a,long long b)
+		{
+			a=a<<b;
+		}
 		friend void operator +=(bigint &a,bigint b)
 		{
 			a=a+b;
@@ -268,6 +340,42 @@ namespace std
 		{
 			a=a*b;
 		}
+		bigint operator ++(void)
+		{
+			*this+=1;
+			return *this;
+		}
+		bigint operator ++(int)
+		{
+			bigint c=*this;
+			*this+=1;
+			return c;
+		}
+		bigint operator --(void)
+		{
+			*this-=1;
+			return *this;
+		}
+		bigint operator --(int)
+		{
+			bigint c=*this;
+			*this-=1;
+			return c;
+		}
+		bool to_llong(long long &n)
+		{
+			bigint p=9223372036854775807;
+			if(*this>p) return false;
+			else
+			{
+				n=0;
+				for(long long i=len;i>=1;i--)
+				{
+					n=n*10+num[i];
+				}
+				return true;
+			}
+		}
 	};
 	bigint b_abs(bigint a)
 	{
@@ -276,5 +384,4 @@ namespace std
 		return c;
 	}
 }
-
 #endif
