@@ -13,6 +13,22 @@ namespace std
 			len=f=1;
 			num.clear();
 		}
+		bigint(long long i)
+		{
+			int t=0;
+			num.clear();
+			if(i<0) f=-1,i=abs(i);
+			else f=1;
+			num.push_back(0);
+			while(i)
+			{
+				num.push_back(i%10);
+				t++;
+				i/=10;
+			}
+			len=t;
+		}
+		
 		void update(int x,int j)
 		{
 			if(j==1)
@@ -253,11 +269,12 @@ namespace std
 			a=a*b;
 		}
 	};
+	bigint b_abs(bigint a)
+	{
+		bigint c=a;
+		c.f=1;
+		return c;
+	}
 }
-std::bigint b_abs(std::bigint a)
-{
-	std::bigint c=a;
-	c.f=1;
-	return c;
-}
+
 #endif
