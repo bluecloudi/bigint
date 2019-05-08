@@ -1,3 +1,4 @@
+
 #ifndef bigint
 #include<iostream>
 #include<vector>
@@ -319,6 +320,12 @@ namespace std
 				c.num.push_back(a[i]);
 			}
 			return c;
+		}
+		friend bigint operator >>(bigint a,long long b)
+		{
+			bigint c;
+			if(a.len<b) return 0;
+			for(c.len=1;)
 		}
 		friend bigint operator /(bigint a,bigint b)
 		{
