@@ -1,4 +1,3 @@
-
 #ifndef bigint
 #include<iostream>
 #include<vector>
@@ -324,8 +323,9 @@ namespace std
 		friend bigint operator >>(bigint a,long long b)
 		{
 			bigint c;
-			if(a.len<b) return 0;
-			for(c.len=1;)
+			if(a.len<b) return 0ll;
+			for(c.len=1;c.len+b<=a.len;c.len++) c[c.len]=a[c.len+b];
+			return c;
 		}
 		friend bigint operator /(bigint a,bigint b)
 		{
