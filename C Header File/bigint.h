@@ -329,11 +329,43 @@ namespace std
 		}
 		friend bigint operator /(bigint a,bigint b)
 		{
-			
+			bigint c,d;
+			if(a<b) return 0ll;
+			d=b<<a.len-b.len+1;
+			if(a<d) d>>=1;
+			c.len=d.len;
+			for(;d.len>=1;d>>=1)
+			{
+				while(a>=d)
+				{
+					a-=d;
+					c[d.len]++;
+				}
+			}
+			return c;
+		}
+		friend bigint operator %(bigint a,bigint b)
+		{
+			bigint d;
+			if(a<b) return 0ll;
+			d=b<<a.len-b.len+1;
+			if(a<d) d>>=1;
+			for(;d.len>=1;d>>=1)
+			{
+				while(a>=d)
+				{
+					a-=d;
+				}
+			}
+			return a;
 		}
 		friend void operator <<=(bigint &a,long long b)
 		{
 			a=a<<b;
+		}
+		friend void operator >>=(bigint &a,long long b)
+		{
+			a=a>>b;
 		}
 		friend void operator +=(bigint &a,bigint b)
 		{
@@ -346,6 +378,14 @@ namespace std
 		friend void operator *=(bigint &a,bigint b)
 		{
 			a=a*b;
+		}
+		friend void operator /=(bigint &a,bigint b)
+		{
+			a=a/b;
+		}
+		friend void operator %=(bigint &a,bigint b)
+		{
+			a=a%b;
 		}
 		bigint operator ++(void)
 		{
