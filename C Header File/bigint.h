@@ -19,23 +19,55 @@ namespace std
 			f=b.f;
 			num=b.num;
 		}
-		bigint(long long n)
+		bigint(int n)
 		{
-			int t=0;
 			num.clear();
-			if(n==0) f=1,len=1,num.push_back(0),num.push_back(0);
+			if(n==0)
+			{
+				f=1;len=1;
+				num.push_back(0);num.push_back(0);
+			}
 			else
 			{
-				if(n<0) f=-1,n=abs(n);
+				if(n<0)
+				{
+					f=-1;
+					n=abs(n);
+				}
 				else f=1;
 				num.push_back(0);
 				while(n)
 				{
 					num.push_back(n%10);
-					t++;
+					len++;
 					n/=10;
 				}
-				len=t;
+			}
+                        
+		}
+		bigint(long long n)
+		{
+			num.clear();
+			if(n==0)
+			{
+				f=1;len=1;
+				num.push_back(0);num.push_back(0);
+			}
+			else
+			{
+				if(n<0)
+				{
+					f=-1;
+					n=abs(n);
+				}
+				else f=1;
+				num.push_back(0);
+				while(n)
+				{
+					num.push_back(n%10);
+					len++;
+					n/=10;
+				}
 			}
 		}
 		bigint(char c[])
