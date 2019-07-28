@@ -1,18 +1,10 @@
-# bigint.h
+# bigint.h V1.0.0
 这里是一个C++库，用来方便的使用高精度。
 
-高精度容器bigint（或BigInt）,支持输入输出流。支持以下操作：
+高精度整数容器bigint,支持输入输出流、比较大小、++、--和五则运算（+-$\times \div$%）。亦支持以下操作：
 ```cpp
-operator +(bigint a,bigint b)
-operator =(string s)
-operator =(bigint a,bigint b)
-operator >(bigint a,bigint b)
-operator <(bigint a,bigint b)
-operator >=(bigint a,bigint b)
-operator <=(bigint a,bigint b)
-operator ==(bigint a,bigint b)
-operator !=(bigint a,bigint b)
-operator +=(bigint a,bigint b)
+operator bigint <<(bigint a,long long b) //将a在十进制中向左移b位
+operator bigint >>(bigint a,long long b) //将a在十进制中向右移b位
 ```
 下面是一个例子：
 ```cpp
