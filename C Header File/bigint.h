@@ -267,6 +267,18 @@ namespace std
 			c.update(x,1);
 			return c;
 		}
+		friend bigint operator +(bigint a,string b)
+		{
+			return a+(bigint)(b);
+		}
+		friend bigint operator +(string a,bigint b)
+		{
+			return (bigint)(a)+b;
+		}
+		friend bigint operator +(string a,string b)
+		{
+			return (bigint)(a)+(bigint)(b);
+		}
 		friend bigint operator -(bigint a,bigint b)
 		{
 			if(a.f==-1&&b.f==1)
@@ -454,6 +466,15 @@ namespace std
 				}
 				return true;
 			}
+		}
+		string to_string()
+		{
+			string s;
+			for(long long i=len;i>=1;i--)
+			{
+				s.push_back(num[i]+'0');
+			}
+			return s;
 		}
 	};
 	bigint b_abs(bigint a)
