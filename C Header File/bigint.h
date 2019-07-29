@@ -72,8 +72,16 @@ namespace std
 		}
 		bigint(char c[])
 		{
-			if(c[0]=='-') f=-1,len=strlen(c)-1;
-			else f=1,len=strlen(c);
+			if(c[0]=='-')
+			{
+				f=-1;
+				len=strlen(c)-1;
+			} 
+			else
+			{
+				f=1;
+				len=strlen(c);
+			} 
 			num.clear();
 			num.push_back(0);
 			for(int i=1,p=strlen(c);i<=len;i++)
@@ -84,8 +92,16 @@ namespace std
 		}
 		bigint(string s)
 		{
-			if(s[0]=='-') f=-1,len=s.size()-1;
-			else f=1,len=s.size();
+			if(s[0]=='-')
+			{
+				f=-1;
+				len=s.size()-1;
+			} 
+			else
+			{
+				f=1;
+				len=s.size();
+			} 
 			num.clear();
 			num.push_back(0);
 			for(int i=1,c=s.size();i<=len;i++)
@@ -132,8 +148,16 @@ namespace std
 		}
 		void operator =(string s)
 		{
-			if(s[0]=='-') f=-1,len=s.size()-1;
-			else f=1,len=s.size();
+			if(s[0]=='-')
+			{
+				f=-1;
+				len=s.size()-1;
+			} 
+			else
+			{
+				f=1;
+				len=s.size();
+			} 
 			num.clear();
 			num.push_back(0);
 			for(int i=1,c=s.size();i<=len;i++)
@@ -144,8 +168,16 @@ namespace std
 		}
 		void operator =(char c[])
 		{
-			if(c[0]=='-') f=-1,len=strlen(c)-1;
-			else f=1,len=strlen(c);
+			if(c[0]=='-')
+			{
+				f=-1;
+				len=strlen(c)-1;
+			} 
+			else
+			{
+				f=1;
+				len=strlen(c);
+			} 
 			num.clear();
 			num.push_back(0);
 			for(int i=1,p=strlen(c);i<=len;i++)
@@ -154,24 +186,55 @@ namespace std
 			}
 			(*this).update(0,0);
 		}
-		void operator =(long long n)
+		void operator =(int n)
 		{
-			int t=0;
 			num.clear();
-			if(n==0) f=1,len=1,num.push_back(0),num.push_back(0);
+			if(n==0)
+			{
+				f=1;len=1;
+				num.push_back(0);num.push_back(0);
+			}
 			else
 			{
-				if(n<0) f=-1,n=abs(n);
+				if(n<0)
+				{
+					f=-1;
+					n=abs(n);
+				}
 				else f=1;
 				num.push_back(0);
 				while(n)
 				{
 					num.push_back(n%10);
-					t++;
+					len++;
 					n/=10;
 				}
-				len=t;
+			}           
+		}
+		void operator =(long long n)
+		{
+			num.clear();
+			if(n==0)
+			{
+				f=1;len=1;
+				num.push_back(0);num.push_back(0);
 			}
+			else
+			{
+				if(n<0)
+				{
+					f=-1;
+					n=abs(n);
+				}
+				else f=1;
+				num.push_back(0);
+				while(n)
+				{
+					num.push_back(n%10);
+					len++;
+					n/=10;
+				}
+			} 
 		}
 		friend ostream& operator <<(ostream& out,bigint val)
 		{
