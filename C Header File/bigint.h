@@ -72,8 +72,16 @@ namespace std
 		}
 		bigint(char c[])
 		{
-			if(c[0]=='-') f=-1,len=strlen(c)-1;
-			else f=1,len=strlen(c);
+			if(c[0]=='-')
+			{
+				f=-1;
+				len=strlen(c)-1;
+			} 
+			else
+			{
+				f=1;
+				len=strlen(c);
+			} 
 			num.clear();
 			num.push_back(0);
 			for(int i=1,p=strlen(c);i<=len;i++)
@@ -84,8 +92,16 @@ namespace std
 		}
 		bigint(string s)
 		{
-			if(s[0]=='-') f=-1,len=s.size()-1;
-			else f=1,len=s.size();
+			if(s[0]=='-')
+			{
+				f=-1;
+				len=s.size()-1;
+			} 
+			else
+			{
+				f=1;
+				len=s.size();
+			} 
 			num.clear();
 			num.push_back(0);
 			for(int i=1,c=s.size();i<=len;i++)
@@ -132,8 +148,16 @@ namespace std
 		}
 		void operator =(string s)
 		{
-			if(s[0]=='-') f=-1,len=s.size()-1;
-			else f=1,len=s.size();
+			if(s[0]=='-')
+			{
+				f=-1;
+				len=s.size()-1;
+			} 
+			else
+			{
+				f=1;
+				len=s.size();
+			} 
 			num.clear();
 			num.push_back(0);
 			for(int i=1,c=s.size();i<=len;i++)
@@ -144,8 +168,16 @@ namespace std
 		}
 		void operator =(char c[])
 		{
-			if(c[0]=='-') f=-1,len=strlen(c)-1;
-			else f=1,len=strlen(c);
+			if(c[0]=='-')
+			{
+				f=-1;
+				len=strlen(c)-1;
+			} 
+			else
+			{
+				f=1;
+				len=strlen(c);
+			} 
 			num.clear();
 			num.push_back(0);
 			for(int i=1,p=strlen(c);i<=len;i++)
@@ -154,24 +186,55 @@ namespace std
 			}
 			(*this).update(0,0);
 		}
-		void operator =(long long n)
+		void operator =(int n)
 		{
-			int t=0;
 			num.clear();
-			if(n==0) f=1,len=1,num.push_back(0),num.push_back(0);
+			if(n==0)
+			{
+				f=1;len=1;
+				num.push_back(0);num.push_back(0);
+			}
 			else
 			{
-				if(n<0) f=-1,n=abs(n);
+				if(n<0)
+				{
+					f=-1;
+					n=abs(n);
+				}
 				else f=1;
 				num.push_back(0);
 				while(n)
 				{
 					num.push_back(n%10);
-					t++;
+					len++;
 					n/=10;
 				}
-				len=t;
+			}           
+		}
+		void operator =(long long n)
+		{
+			num.clear();
+			if(n==0)
+			{
+				f=1;len=1;
+				num.push_back(0);num.push_back(0);
 			}
+			else
+			{
+				if(n<0)
+				{
+					f=-1;
+					n=abs(n);
+				}
+				else f=1;
+				num.push_back(0);
+				while(n)
+				{
+					num.push_back(n%10);
+					len++;
+					n/=10;
+				}
+			} 
 		}
 		friend ostream& operator <<(ostream& out,bigint val)
 		{
@@ -267,6 +330,18 @@ namespace std
 			c.update(x,1);
 			return c;
 		}
+		friend bigint operator +(bigint a,string b)
+		{
+			return a+(bigint)(b);
+		}
+		friend bigint operator +(string a,bigint b)
+		{
+			return (bigint)(a)+b;
+		}
+		friend bigint operator +(string a,string b)
+		{
+			return (bigint)(a)+(bigint)(b);
+		}
 		friend bigint operator -(bigint a,bigint b)
 		{
 			if(a.f==-1&&b.f==1)
@@ -313,6 +388,18 @@ namespace std
 			c.update(0,0);
 			return c;
 		}
+		friend bigint operator -(bigint a,string b)
+		{
+			return a-(bigint)(b);
+		}
+		friend bigint operator -(string a,bigint b)
+		{
+			return (bigint)(a)-b;
+		}
+		friend bigint operator -(string a,string b)
+		{
+			return (bigint)(a)-(bigint)(b);
+		}
 		friend bigint operator *(bigint a,bigint b)
 		{
 			bigint c;
@@ -334,6 +421,18 @@ namespace std
 			}
 			return c;
 		}
+		friend bigint operator *(bigint a,string b)
+		{
+			return a*(bigint)(b);
+		}
+		friend bigint operator *(string a,bigint b)
+		{
+			return (bigint)(a)*b;
+		}
+		friend bigint operator *(string a,string b)
+		{
+			return (bigint)(a)*(bigint)(b);
+		}
 		friend bigint operator <<(bigint a,long long b)
 		{
 			bigint c;
@@ -352,12 +451,20 @@ namespace std
 			}
 			return c;
 		}
+		friend bigint operator <<(string a,long long b)
+		{
+			return bigint(a)<<b;
+		}
 		friend bigint operator >>(bigint a,long long b)
 		{
 			bigint c;
 			if(a.len<b) return 0ll;
 			for(c.len=1;c.len+b<=a.len;c.len++) c[c.len]=a[c.len+b];
 			return c;
+		}
+		friend bigint operator >>(string a,long long b)
+		{
+			return bigint(a)>>b;
 		}
 		friend bigint operator /(bigint a,bigint b)
 		{
@@ -376,6 +483,18 @@ namespace std
 			}
 			return c;
 		}
+		friend bigint operator /(bigint a,string b)
+		{
+			return a/(bigint)(b);
+		}
+		friend bigint operator /(string a,bigint b)
+		{
+			return (bigint)(a)/b;
+		}
+		friend bigint operator /(string a,string b)
+		{
+			return (bigint)(a)/(bigint)(b);
+		}
 		friend bigint operator %(bigint a,bigint b)
 		{
 			bigint d;
@@ -390,6 +509,18 @@ namespace std
 				}
 			}
 			return a;
+		}
+		friend bigint operator %(bigint a,string b)
+		{
+			return a%(bigint)(b);
+		}
+		friend bigint operator %(string a,bigint b)
+		{
+			return (bigint)(a)%b;
+		}
+		friend bigint operator %(string a,string b)
+		{
+			return (bigint)(a)%(bigint)(b);
 		}
 		friend void operator <<=(bigint &a,long long b)
 		{
@@ -454,6 +585,15 @@ namespace std
 				}
 				return true;
 			}
+		}
+		string to_string()
+		{
+			string s;
+			for(long long i=len;i>=1;i--)
+			{
+				s.push_back(num[i]+'0');
+			}
+			return s;
 		}
 	};
 	bigint b_abs(bigint a)
