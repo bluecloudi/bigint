@@ -388,6 +388,10 @@ namespace std
 			c.update(0,0);
 			return c;
 		}
+		friend bigint operator -(bigint a,string b)
+		{
+			return a-(bigint)(b);
+		}
 		friend bigint operator *(bigint a,bigint b)
 		{
 			bigint c;
