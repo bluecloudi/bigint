@@ -392,6 +392,14 @@ namespace std
 		{
 			return a-(bigint)(b);
 		}
+		friend bigint operator -(string a,bigint b)
+		{
+			return (bigint)(a)-b;
+		}
+		friend bigint operator -(string a,string b)
+		{
+			return (bigint)(a)-(bigint)(b);
+		}
 		friend bigint operator *(bigint a,bigint b)
 		{
 			bigint c;
@@ -413,6 +421,18 @@ namespace std
 			}
 			return c;
 		}
+		friend bigint operator *(bigint a,string b)
+		{
+			return a*(bigint)(b);
+		}
+		friend bigint operator *(string a,bigint b)
+		{
+			return (bigint)(a)*b;
+		}
+		friend bigint operator *(string a,string b)
+		{
+			return (bigint)(a)*(bigint)(b);
+		}
 		friend bigint operator <<(bigint a,long long b)
 		{
 			bigint c;
@@ -431,12 +451,20 @@ namespace std
 			}
 			return c;
 		}
+		friend bigint operator <<(string a,long long b)
+		{
+			return bigint(a)<<b;
+		}
 		friend bigint operator >>(bigint a,long long b)
 		{
 			bigint c;
 			if(a.len<b) return 0ll;
 			for(c.len=1;c.len+b<=a.len;c.len++) c[c.len]=a[c.len+b];
 			return c;
+		}
+		friend bigint operator >>(string a,long long b)
+		{
+			return bigint(a)>>b;
 		}
 		friend bigint operator /(bigint a,bigint b)
 		{
@@ -455,6 +483,18 @@ namespace std
 			}
 			return c;
 		}
+		friend bigint operator /(bigint a,string b)
+		{
+			return a/(bigint)(b);
+		}
+		friend bigint operator /(string a,bigint b)
+		{
+			return (bigint)(a)/b;
+		}
+		friend bigint operator /(string a,string b)
+		{
+			return (bigint)(a)/(bigint)(b);
+		}
 		friend bigint operator %(bigint a,bigint b)
 		{
 			bigint d;
@@ -469,6 +509,18 @@ namespace std
 				}
 			}
 			return a;
+		}
+		friend bigint operator %(bigint a,string b)
+		{
+			return a%(bigint)(b);
+		}
+		friend bigint operator %(string a,bigint b)
+		{
+			return (bigint)(a)%b;
+		}
+		friend bigint operator %(string a,string b)
+		{
+			return (bigint)(a)%(bigint)(b);
 		}
 		friend void operator <<=(bigint &a,long long b)
 		{
