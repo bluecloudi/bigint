@@ -602,5 +602,27 @@ namespace std
 		c.f=1;
 		return c;
 	}
+	bigint b_pow(bigint a,long long b)
+	{
+		bigint ans=1,base=a;
+		while(b)
+		{
+			if(b&1) ans*=base;
+			base*=base;
+			b>>=1;
+		}
+		return ans;
+	}
+	bigint b_pow(bigint a,bigint b)
+	{
+		bigint ans=1,base=a;
+		while(b)
+		{
+			if(b%bigint(2)==1) ans*=base;
+			base*=base;
+			b/=2;
+		}
+		return ans;
+	}
 }
 #endif
