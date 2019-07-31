@@ -595,6 +595,15 @@ namespace std
 			}
 			return s;
 		}
+		#define jinzhinum {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"}
+		string to_njingzhi(int n)
+		{
+			string s;
+			while(n)
+			{
+				
+			}
+		}
 	};
 	bigint b_abs(bigint a)
 	{
