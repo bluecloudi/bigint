@@ -3,11 +3,38 @@
 #include<vector>
 #include<cstring>
 #include<cmath>
+#include<string> 
 namespace std
 {
 	struct bigint{
 		vector<int> num;
 		long long len,f;
+		void update(int x,int j)
+		{
+			if(j==1)
+			{
+				while(x)
+				{
+					if(num.size()-1>=len+1) num[++len]=x%10;
+					else num.push_back(x%10),len++;
+					x/=10;
+				}
+			}
+			else
+			{
+				if(j==2) while(num[len]==0&&len>1) len--;
+				else
+				{
+					while(x)
+					{
+						if(num.size()-1>=len+1) num[++len]=x%10;
+						else num.push_back(x%10),len++;
+						x/=10;
+					}
+					while(num[len]==0&&len>1) len--;
+				}
+			} 
+		}
 		bigint()
 		{
 			len=f=1;
@@ -110,31 +137,33 @@ namespace std
 			}
 			(*this).update(0,0);
 		}
-		void update(int x,int j)
+		int()
 		{
-			if(j==1)
-			{
-				while(x)
-				{
-					if(num.size()-1>=len+1) num[++len]=x%10;
-					else num.push_back(x%10),len++;
-					x/=10;
-				}
-			}
+			bigint p=(int)(pow(2,31)-1);
+			if(*this>p||*this<-p) return -1;
 			else
 			{
-				if(j==2) while(num[len]==0&&len>1) len--;
-				else
+				int n=0;
+				for(long long i=len;i>=1;i--)
 				{
-					while(x)
-					{
-						if(num.size()-1>=len+1) num[++len]=x%10;
-						else num.push_back(x%10),len++;
-						x/=10;
-					}
-					while(num[len]==0&&len>1) len--;
+					n=n*10+num[i];
 				}
-			} 
+				return n;
+			}
+		}
+		long long()
+		{
+			bigint p=(int)(pow(2,63)-1);
+			if(*this>p||*this<-p) return -1;
+			else
+			{
+				long long n=0;
+				for(long long i=len;i>=1;i--)
+				{
+					n=n*10+num[i];
+				}
+				return n;
+			}
 		}
 		int& operator [](int index)
 		{
@@ -550,6 +579,13 @@ namespace std
 		{
 			a=a%b;
 		}
+		bigint operator -()
+		{
+			bigint c=*this;
+			if(f==1) c.f=-1;
+			else c.f=1;
+			return c;
+		}
 		bigint operator ++(void)
 		{
 			*this+=1;
@@ -574,8 +610,8 @@ namespace std
 		}
 		bool to_llong(long long &n)
 		{
-			bigint p=9223372036854775807;
-			if(*this>p) return false;
+			bigint p=(long long)(pow(2,63)-1);
+			if(*this>p||*this<-p) return false;
 			else
 			{
 				n=0;
@@ -601,6 +637,7 @@ namespace std
 			string s;
 			while(n)
 			{
+				int p=(int)((*this)/n);
 				
 			}
 		}
@@ -625,7 +662,7 @@ namespace std
 	bigint b_pow(bigint a,bigint b)
 	{
 		bigint ans=1,base=a;
-		while(b)
+		while(b!=0)
 		{
 			if(b%bigint(2)==1) ans*=base;
 			base*=base;
