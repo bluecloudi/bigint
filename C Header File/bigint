@@ -6,6 +6,8 @@
 #include <string>
 namespace std
 {
+bigint njingshi_to_shijingzhi(string s);
+
 struct bigint {
 	vector<int>	num;
 	long long	len, f;
@@ -599,6 +601,20 @@ struct bigint {
 	}
 
 
+	friend bigint operator &(bigint a, bigint b)
+	{
+		string s1 = a.to_njingzhi(2);
+		string s2 = b.to_njingzhi(2);
+		string s3 =
+		    int len1 = min(s1.size(), s2.size()), len2 = max(s1.size(), s2.size()), i;
+
+		for (i = 0; i < len1; i++)
+		{
+			if ((s1[i] == '0') || (s2[i] == '0')) { s3.push_back('0'); }else{ s3.push_back(s2); }
+		}
+	}
+
+
 	friend void operator <<=(bigint& a, long long b)
 	{
 		a = a<<b;
@@ -723,6 +739,7 @@ struct bigint {
 			s.push_back((char)p);
 			c /= n;
 		}
+		reverse(s.begin(), s.end());
 		return (s);
 	}
 };
@@ -764,6 +781,12 @@ bigint b_pow(bigint a, bigint b)
 		b /= 2;
 	}
 	return (ans);
+}
+
+
+bigint njingshi_to_shijingzhi(string s, int n)
+{
+	bigint a, b = n;
 }
 }
 #endif
