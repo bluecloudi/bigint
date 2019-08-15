@@ -1,4 +1,7 @@
 <h1 align="center">Welcome to bigint.h 👋</h1>
+
+Location of the project:https://github.com/bluecloudi/bigint.h
+
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
 </p>
@@ -7,13 +10,11 @@
 
 ## Install
 
-```sh
-npm install
-```
+Please go to the [releases](https://github.com/bluecloudi/bigint.h/releases) and download the bigint of latest version.
 
 ## Author
 
-👤 ** bluecloudi**
+👤 **bluecloudi**
 
 * Github: [@bluecloudi](https://github.com/bluecloudi)
 
