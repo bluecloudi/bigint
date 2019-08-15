@@ -1,22 +1,30 @@
-# bigint.h
-这里是一个C++库，用来方便的使用高精度。
+<h1 align="center">Welcome to bigint.h 👋</h1>
 
-高精度整数容器bigint,支持输入输出流、比较大小、++、--和五则运算（加、减、乘、除、%）。亦支持以下操作：
-```cpp
-operator bigint <<(bigint a,long long b) //将a在十进制中向左移b位
-operator bigint >>(bigint a,long long b) //将a在十进制中向右移b位
-```
-下面是一个例子：
-```cpp
-#include<bigint.h>
-#include<iostream>
-using namespace std;
-int main()
-{
-  bigint a,b;
-  cin>>a>>b;
-  cout<<a+b<<endl;
-  return 0;
-}
-```
-仍在更新中，请大家支持。
+Location of the project:https://github.com/bluecloudi/bigint.h
+
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+</p>
+
+>  A  C++  Header  File  Of  bigint
+
+## Install
+
+Please go to the [releases](https://github.com/bluecloudi/bigint.h/releases) and download the bigint of latest version.
+
+## Author
+
+👤 **bluecloudi**
+
+* Github: [@bluecloudi](https://github.com/bluecloudi)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/bluecloudi/bigint.h/issues).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
