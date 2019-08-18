@@ -1,30 +1,32 @@
-<h1 align="center">Welcome to bigint.h 👋</h1>
+<h1 align="center">欢迎来到 bigint.h 👋</h1>
 
-Location of the project:https://github.com/bluecloudi/bigint.h
+[English version](http://github.com/bluecloudi/bigint.h/blob/master/README-en.md)
+
+项目地址:https://github.com/bluecloudi/bigint.h
 
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="版本" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
->  A  C++  Header  File  Of  bigint
+>  一个大整数的C++库
 
-## Install
+## 下载
 
-Please go to the [releases](https://github.com/bluecloudi/bigint.h/releases) and download the bigint of latest version.
+请去 [版本页面](https://github.com/bluecloudi/bigint.h/releases)并下载最新的bigint.
 
-## Author
+## 创作者
 
 👤 **bluecloudi**
 
 * Github: [@bluecloudi](https://github.com/bluecloudi)
 
-## 🤝 Contributing
+## 🤝合作
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/bluecloudi/bigint.h/issues).
+欢迎大家在issue提出意见并Pull request！<br />请检查 [issues page](https://github.com/bluecloudi/bigint.h/issues).
 
-## Show your support
+## 显示你的支持
 
-Give a ⭐️ if this project helped you!
+如果这个项目帮助了你，请给一颗 ⭐️吧！
 
 ***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+_这个 README是由[readme-md-generator](https://github.com/kefranabg/readme-md-generator)创建的❤️_
