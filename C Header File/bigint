@@ -333,6 +333,44 @@ struct bigint {
 		}
 	}
 
+	operator int()
+	{
+		bigint p = (int)(pow(2, 31)-1);
+
+
+
+		if ((*this > p) || (*this < -p)) { return (-1); }else{
+			int n = 0;
+
+			for (long long i = len; i >= 1; i--)
+
+			{
+				n = n*10+num[i];
+			}
+
+			return (n);
+		}
+	}
+
+	operator long long()
+
+	{
+		bigint p = (int)(pow(2, 63)-1);
+
+
+
+		if ((*this > p) || (*this < -p)) { return (-1); }else{
+			long long n = 0;
+
+			for (long long i = len; i >= 1; i--)
+
+			{
+				n = n*10+num[i];
+			}
+
+			return (n);
+		}
+	}
 
 	friend ostream& operator <<(ostream& out, bigint val)
 
@@ -972,7 +1010,7 @@ struct bigint {
 		while (n)
 
 		{
-			(c%n).to_llong(p);
+			(c%bigint(n)).to_llong(p);
 
 			s.push_back(jinzhinum[p]);
 
@@ -1026,10 +1064,10 @@ bigint b_pow(bigint a, bigint b)
 
 
 
-	while (b != 0)
+	while (b != bigint(0))
 
 	{
-		if (b%bigint(2) == 1) {
+		if (b%bigint(2) == bigint(1)) {
 			ans *= base;
 		}
 
