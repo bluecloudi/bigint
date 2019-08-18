@@ -1,6 +1,6 @@
 <h1 align="center">欢迎来到 bigint.h 👋</h1>
 
-[English version](http://github.com/bluecloudi/bigint.h/blob/master/README-en.md)
+[English version](http://github.com/bluecloudi/bigint.h/blob/dev/README-en.md)
 
 项目地址:https://github.com/bluecloudi/bigint.h
 
