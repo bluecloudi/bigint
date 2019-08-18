@@ -13,8 +13,8 @@
 namespace std
 
 {
-	struct bigint;
-	bigint njingzhi_to_shijingzhi(string s);
+struct bigint;
+bigint njingzhi_to_shijingzhi(string s);
 
 
 struct bigint {
@@ -188,49 +188,7 @@ struct bigint {
 		{
 			num.push_back(s[c-i]-'0');
 		}
-
-		(*this).update(0, 0);
-	}
-
-
-	int()
-
-	{
-		bigint p = (int)(pow(2, 31)-1);
-
-
-
-		if ((*this > p) || (*this < -p)) { return (-1); }else{
-			int n = 0;
-
-			for (long long i = len; i >= 1; i--)
-
-			{
-				n = n*10+num[i];
-			}
-
-			return (n);
-		}
-	}
-
-	long long()
-
-	{
-		bigint p = (int)(pow(2, 63)-1);
-
-
-
-		if ((*this > p) || (*this < -p)) { return (-1); }else{
-			long long n = 0;
-
-			for (long long i = len; i >= 1; i--)
-
-			{
-				n = n*10+num[i];
-			}
-
-			return (n);
-		}
+		while (num[len] == 0 && len > 1) { len--; }
 	}
 
 
@@ -1000,12 +958,7 @@ struct bigint {
 	}
 
 
-#define jinzhinum \
-
-	{
-		"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
-
-	}
+#define jinzhinum    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 	string to_njingzhi(int n)
 
@@ -1014,14 +967,14 @@ struct bigint {
 
 		bigint c = *this;
 
-
+		long long p;
 
 		while (n)
 
 		{
-			int p = (int)c%n;
+			(c%n).to_llong(p);
 
-			s.push_back((char)p);
+			s.push_back(jinzhinum[p]);
 
 			c /= n;
 		}
