@@ -5,7 +5,7 @@
 项目地址:https://github.com/bluecloudi/bigint.h
 
 <p>
-  <img alt="版本" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+  <img alt="版本" src="https://img.shields.io/badge/版本-1.0.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
 >  一个大整数的C++库
