@@ -1,4 +1,6 @@
-#ifndef bigint
+#ifndef __BIGINT
+
+#define __BIGINT
 
 #include <iostream>
 
@@ -14,7 +16,7 @@ namespace std
 
 {
 struct bigint;
-bigint njingzhi_to_shijingzhi(string s);
+bigint njingzhi_to_10jingzhi(string s,int n);
 
 
 struct bigint {
@@ -849,6 +851,30 @@ struct bigint {
 
 	friend bigint operator &(bigint a, bigint b)
 	{
+		string s1=a.to_njingzhi(2);
+		string s2=b.to_njingzhi(2);
+		int len=max(s1.size(),s2.size()),minsize=min(s1.size(),s2.size()),i;
+		string s;
+		for(i=0;i<minsize;i++)
+		{
+			if(s1[i]=='0'||s2[i]=='0') s.push_back('0');
+			else s.push_back('1');
+		}
+		if(len==s1.size())
+		{
+			for(;i<len;i++)
+			{
+				s.push_back(s1[i]);
+			}
+		}
+		else
+		{
+			for(;i<len;i++)
+			{
+				s.push_back(s2[i]);
+			}
+		}
+		return njingzhi_to_10jingzhi(s,2);
 	}
 
 
@@ -1077,6 +1103,16 @@ bigint b_pow(bigint a, bigint b)
 	}
 
 	return (ans);
+}
+bigint njingzhi_to_10jingzhi(string s,int n)
+{
+	bigint a=0,p=n;
+	for(int i=0;i<s.size();i++)
+	{
+		if(s[i]>='0'&&s[i]<='9') a+=b_pow(p,i)*(bigint)((int)(s[i]-'0'));
+		if(s[i]>='A'&&s[i]<='Z') a+=b_pow(p,i)*(bigint)((int)(s[i]-'A'+10));
+	}
+	return a;
 }
 }
 
