@@ -8,6 +8,8 @@
   <img alt="版本" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
 </p>
 
+![debug](https://img.shields.io/badge/debug-100%25-blue)
+
 >  一个大整数的C++库
 
 ## 下载
