@@ -1,4 +1,6 @@
-#ifndef bigint
+#ifndef BIGINT
+
+#define BIGINT
 
 #include <iostream>
 
